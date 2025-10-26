@@ -77,6 +77,8 @@ The authentication system manages user registration, login, and session handling
 
 - Tokens must expire after 60 minutes of inactivity.
 
+---
+
 ## 2. Property Management System
 
 ### Description
@@ -137,6 +139,8 @@ This module allows hosts to create, update, delete, and view property listings.
 - Must handle up to 500 concurrent property queries efficiently.
 
 - Caching should be used for frequent property searches to reduce latency.
+
+---
 
 ## 3. Booking System
 
