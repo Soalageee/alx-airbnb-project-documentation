@@ -156,14 +156,17 @@ The booking system manages the process of reserving properties, checking availab
 
 - Generate booking confirmations and receipts.
 
-API Endpoints
-Method	Endpoint	Description
-POST	/api/v1/bookings	Create a new booking
-GET	/api/v1/bookings/:id	Retrieve booking details
-DELETE	/api/v1/bookings/:id	Cancel a booking
+### API Endpoints
 
-Input / Output Specifications
-Booking Request
+| Method | Endpoint | Description |
+|--------|-----------|-------------|
+| `POST` | `/api/v1/bookings` | Create a new booking |
+| `GET` | `/api/v1/bookings/:id` | Retrieve booking details |
+| `DELETE` | `/api/v1/bookings/:id` | Cancel a booking |
+
+### Input / Output Specifications
+
+**Booking Request**
 
 ```json
 {
@@ -184,17 +187,19 @@ Booking Request
 }
 ```
 
-Validation Rules
-Check-in must be before Check-out.
+### Validation Rules
 
-Property must exist and be available.
+- Check-in must be before Check-out.
 
-User must be authenticated.
+- Property must exist and be available.
 
-Performance Criteria
-Booking transactions must complete within 500ms.
+- User must be authenticated.
 
-Database queries should be optimized using indexes on property_id and booking_dates.
+### Performance Criteria
+
+- Booking transactions must complete within 500ms.
+
+- Database queries should be optimized using indexes on property_id and booking_dates.
 
 ### API Endpoints Overview
 
