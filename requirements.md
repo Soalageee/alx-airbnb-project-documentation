@@ -35,70 +35,75 @@ The authentication system manages user registration, login, and session handling
   "email": "soala@example.com",
   "password": "StrongPassword123!"
 }
+```
 
----
+**Register Response**
 
-Register Response
-
-json
-Copy code
+```json
 {
   "message": "User registered successfully.",
   "user_id": "u12345",
   "status": "success"
 }
-Login Request
+```
 
-json
-Copy code
+**Login Request**
+
+```json
 {
   "email": "soala@example.com",
   "password": "StrongPassword123!"
 }
-Login Response
+```
 
-json
-Copy code
+**Login Response**
+
+```json
 {
   "access_token": "eyJhbGciOiJIUzI1NiIs...",
   "expires_in": 3600
 }
-Validation Rules
-Email must be unique and valid.
+```
 
-Password must contain at least 8 characters, including one uppercase, one number, and one special character.
+### Validation Rules
+- Email must be unique and valid.
 
-Full Name cannot be empty.
+- Password must contain at least 8 characters, including one uppercase, one number, and one special character.
 
-Performance Criteria
-Authentication requests should complete within 300ms under normal load.
+- Full Name cannot be empty.
 
-Tokens must expire after 60 minutes of inactivity.
+### Performance Criteria
+- Authentication requests should complete within 300ms under normal load.
+
+- Tokens must expire after 60 minutes of inactivity.
 
 ## 2. Property Management System
-Description
+
+### Description
 This module allows hosts to create, update, delete, and view property listings.
 
-Functional Requirements
-Hosts can list new properties with details like title, location, price, and description.
+### Functional Requirements
+- Hosts can list new properties with details like title, location, price, and description.
 
-Only authenticated users can manage their own properties.
+- Only authenticated users can manage their own properties.
 
-Guests can view all available properties without authentication.
+- Guests can view all available properties without authentication.
 
-API Endpoints
-Method	Endpoint	Description
-POST	/api/v1/properties	Create a new property listing
-GET	/api/v1/properties	Retrieve all available properties
-GET	/api/v1/properties/:id	Retrieve a single property by ID
-PUT	/api/v1/properties/:id	Update a property listing
-DELETE	/api/v1/properties/:id	Delete a property listing
+### API Endpoints
 
-Input / Output Specifications
-Create Property Request
+| Method | Endpoint | Description |
+|--------|-----------|-------------|
+| `POST` | `/api/v1/properties` | Create a new property listing |
+| `GET` | `/api/v1/properties` | Retrieve all available properties |
+| `GET` | `/api/v1/properties/:id` | Retrieve a single property by ID |
+| `PUT` | `/api/v1/properties/:id` | Update a property listing |
+| `DELETE` | `/api/v1/properties/:id` | Delete a property listing |
 
-json
-Copy code
+### Input / Output Specifications
+
+**Create Property Request**
+
+```json
 {
   "title": "Cozy Apartment in Lagos",
   "location": "Lagos, Nigeria",
@@ -106,41 +111,46 @@ Copy code
   "description": "A modern 2-bedroom apartment near the beach.",
   "host_id": "u12345"
 }
-Create Property Response
+```
 
-json
-Copy code
+**Create Property Response**
+
+```json
 {
   "message": "Property listed successfully.",
   "property_id": "p7890",
   "status": "success"
 }
-Validation Rules
-Title: Required, minimum 3 characters.
+```
 
-Location: Required.
+### Validation Rules
 
-Price: Must be a positive number.
+- **Title:** Required, minimum 3 characters.
 
-Description: Optional but recommended.
+- **Location:** Required.
 
-Performance Criteria
-Must handle up to 500 concurrent property queries efficiently.
+- **Price:** Must be a positive number.
 
-Caching should be used for frequent property searches to reduce latency.
+- **Description:** Optional but recommended.
+
+### Performance Criteria
+- Must handle up to 500 concurrent property queries efficiently.
+
+- Caching should be used for frequent property searches to reduce latency.
 
 ## 3. Booking System
-Description
+
+### Description
 The booking system manages the process of reserving properties, checking availability, and confirming payments.
 
-Functional Requirements
-Guests can book available properties by specifying dates.
+### Functional Requirements
+- Guests can book available properties by specifying dates.
 
-Prevent double booking of the same property within the same date range.
+- Prevent double booking of the same property within the same date range.
 
-Support booking cancellation within a configurable period.
+- Support booking cancellation within a configurable period.
 
-Generate booking confirmations and receipts.
+- Generate booking confirmations and receipts.
 
 API Endpoints
 Method	Endpoint	Description
@@ -151,23 +161,25 @@ DELETE	/api/v1/bookings/:id	Cancel a booking
 Input / Output Specifications
 Booking Request
 
-json
-Copy code
+```json
 {
   "property_id": "p7890",
   "guest_id": "u54321",
   "check_in": "2025-11-01",
   "check_out": "2025-11-05"
 }
-Booking Response
+```
 
-json
-Copy code
+**Booking Response**
+
+```json
 {
   "booking_id": "b001",
   "status": "confirmed",
   "message": "Booking successful."
 }
+```
+
 Validation Rules
 Check-in must be before Check-out.
 
@@ -180,33 +192,33 @@ Booking transactions must complete within 500ms.
 
 Database queries should be optimized using indexes on property_id and booking_dates.
 
-API Endpoints Overview
-Feature	Endpoint	Method	Description
-User Auth	/api/v1/auth/register	POST	Register new users
-User Auth	/api/v1/auth/login	POST	User login
-Property	/api/v1/properties	POST	Create property listing
-Property	/api/v1/properties/:id	GET	View property
-Booking	/api/v1/bookings	POST	Create a booking
-Booking	/api/v1/bookings/:id	DELETE	Cancel booking
+### API Endpoints Overview
 
-Appendix
-Technologies
-Backend Framework: Node.js (Express)
+| Feature     | Endpoint                  | Method | Description           |
+|------------|---------------------------|--------|----------------------|
+| User Auth  | /api/v1/auth/register     | POST   | Register new users    |
+| User Auth  | /api/v1/auth/login        | POST   | User login            |
+| Property   | /api/v1/properties        | POST   | Create property listing |
+| Property   | /api/v1/properties/:id    | GET    | View property         |
+| Booking    | /api/v1/bookings          | POST   | Create a booking      |
+| Booking    | /api/v1/bookings/:id      | DELETE | Cancel booking        |
 
-Database: MongoDB or PostgreSQL
+### Appendix
 
-Authentication: JWT (JSON Web Token)
+**Technologies**
 
-Hosting: AWS EC2 / Render / Railway
+- **Backend Framework:** Node.js (Express)
 
-Security Considerations
-All sensitive data (passwords, tokens) should be encrypted.
+- **Database:** MongoDB or PostgreSQL
 
-Input validation and sanitization must prevent SQL injection or XSS.
+- **Authentication:** JWT (JSON Web Token)
 
-Rate limiting should be implemented on authentication endpoints.
+- **Hosting:** AWS EC2 / Render / Railway
 
-Document Author: Soala George
-Project: ALX Airbnb Clone — Backend Documentation
-File: requirements.md
-Date: October 2025
+**Security Considerations**
+
+- All sensitive data (passwords, tokens) should be encrypted.
+
+- Input validation and sanitization must prevent SQL injection or XSS.
+
+- Rate limiting should be implemented on authentication endpoints.
